@@ -4,6 +4,15 @@ services:
   mongo:
     image: mongo
     restart: always
+    ports:
+      - '27017:27017'
     environment:
       MONGO_INITDB_ROOT_USERNAME: minijo
       MONGO_INITDB_ROOT_PASSWORD: miata123
+    networks:
+      host: {}
+
+networks:
+  host:
+    name: host
+    external: true
