@@ -1,18 +1,14 @@
 version: '3.1'
 
 services:
-  mongo:
-    image: mongo
+  pgsql:
+    image: postgres
     restart: always
     ports:
-      - '27017:27017'
+      - 5432:5432
     environment:
-      MONGO_INITDB_ROOT_USERNAME: minijo
-      MONGO_INITDB_ROOT_PASSWORD: miata123
-    networks:
-      host: {}
-
-networks:
-  host:
-    name: host
-    external: true
+      POSTGRES_USER: minijo123
+      POSTGRES_PASSWORD: miata123
+      POSTGRES_DB: minijo
+    volumes:
+      - ~/docker-data/postgresql/data:/var/lib/postgresql/data

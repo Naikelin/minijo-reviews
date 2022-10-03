@@ -1,1 +1,1 @@
-# minijo-reviews
+Simple CRUD using Echo and pgsql
