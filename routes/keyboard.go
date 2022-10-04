@@ -1,8 +1,6 @@
 package routes
 
 import (
-	"errors"
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -11,44 +9,28 @@ import (
 	"minijo/models"
 )
 
-func UserRoutes(e *echo.Echo, db *gorm.DB) {
-	e.POST("/login", func(c echo.Context) error {
-		user := new(models.Users)
-		if err := c.Bind(user); err != nil {
-			return c.JSON(http.StatusInternalServerError, err)
-		}
-		findUser := new(models.Users)
-
-		fmt.Println(user.Username)
-		fmt.Println(user.Password)
-
-		result := db.Where("username = ?", user.Username).First(&findUser)
-
-		if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
-			fmt.Println(result.Error)
+func KeyboardRoutes(e *echo.Echo, db *gorm.DB) {
+	e.GET("/keyboards", func(c echo.Context) error {
+		keyboards := []models.Keyboard{}
+		result := db.Find(&keyboards)
+		if result.Error != nil {
 			return c.JSON(http.StatusInternalServerError, result.Error)
 		}
-
-		if (findUser.Username == user.Username) && (findUser.Password == user.Password) {
-			return c.JSON(http.StatusOK, "login successful")
-		} else {
-			return c.JSON(http.StatusUnauthorized, "No login 4 u >:c")
-		}
-
+		return c.JSON(http.StatusOK, keyboards)
 	})
 
-	e.POST("/register", func(c echo.Context) error {
-		user := new(models.Users)
-		if err := c.Bind(&user); err != nil {
+	e.POST("/keyboards", func(c echo.Context) error {
+		keyboards := []models.Keyboard{}
+		if err := c.Bind(&keyboards); err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
 
-		result := db.Create(&user)
+		result := db.Create(&keyboards)
 
 		if result.Error != nil {
 			return c.JSON(http.StatusInternalServerError, result.Error)
 		}
 
-		return c.JSON(http.StatusOK, "User created")
+		return c.JSON(http.StatusOK, "Keyboard created")
 	})
 }

@@ -48,7 +48,7 @@ type Users struct {
 	Username string `gorm:"not null" json:"username"`
 	Password string `gorm:"not null" json:"password"`
 	Email    string `gorm:"not null" json:"email"`
-	Name     string `gorm:"not null"	json:"name"`
+	Name     string `gorm:"not null" json:"name"`
 }
 
 type Reviews struct {

@@ -12,6 +12,7 @@ func main() {
 	DB := db.Init()
 
 	routes.UserRoutes(e, DB)
+	routes.KeyboardRoutes(e, DB)
 
 	e.Logger.Fatal(e.Start(":5000"))
 }
