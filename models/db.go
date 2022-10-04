@@ -33,13 +33,13 @@ type Keycaps struct {
 type Keyboard struct {
 	gorm.Model
 	ID         int    `gorm:"primaryKey"`
-	Name       string `gorm:"not null"`
-	Custom     bool   `gorm:"not null"`
-	Photo_path string `gorm:"default:/static/img/placeholder.png"`
-	PcbID      int    `gorm:"default:null"`
-	CaseID     int    `gorm:"default:null"`
-	SwitchID   int    `gorm:"default:null"`
-	KeycapsID  int    `gorm:"default:null"`
+	Name       string `gorm:"not null" json:"name"`
+	Custom     bool   `gorm:"default:false" json:"custom"`
+	Photo_path string `gorm:"default:/static/img/placeholder.png" json:"photo_path"`
+	PcbID      int    `gorm:"default:null" json:"pcb_id"`
+	CaseID     int    `gorm:"default:null" json:"case_id"`
+	SwitchID   int    `gorm:"default:null" json:"switch_id"`
+	KeycapsID  int    `gorm:"default:null" json:"keycaps_id"`
 }
 
 type Users struct {

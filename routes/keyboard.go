@@ -20,7 +20,7 @@ func KeyboardRoutes(e *echo.Echo, db *gorm.DB) {
 	})
 
 	e.POST("/keyboards", func(c echo.Context) error {
-		keyboards := []models.Keyboard{}
+		keyboards := models.Keyboard{}
 		if err := c.Bind(&keyboards); err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
