@@ -2,23 +2,16 @@ package main
 
 import (
 	"minijo/db"
-	"net/http"
+	"minijo/routes"
 
 	"github.com/labstack/echo"
 )
 
-type test struct {
-	Name string `json:"name"`
-}
-
 func main() {
 	e := echo.New()
+	DB := db.Init()
 
-	db.Init()
-
-	e.GET("/", func(c echo.Context) error {
-		return c.JSON(http.StatusOK, test{Name: "test"})
-	})
+	routes.UserRoutes(e, DB)
 
 	e.Logger.Fatal(e.Start(":5000"))
 }

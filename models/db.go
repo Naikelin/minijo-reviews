@@ -32,27 +32,23 @@ type Keycaps struct {
 
 type Keyboard struct {
 	gorm.Model
-	ID         int `gorm:"primaryKey"`
-	Name       string
-	Custom     bool
-	Photo_path string
-	Pcb        Pcb
-	PcbID      int
-	Case       Case
-	CaseID     int
-	Switch     Switch
-	SwitchID   int
-	Keycaps    Keycaps
-	KeycapsID  int
+	ID         int    `gorm:"primaryKey"`
+	Name       string `gorm:"not null"`
+	Custom     bool   `gorm:"not null"`
+	Photo_path string `gorm:"default:/static/img/placeholder.png"`
+	PcbID      int    `gorm:"default:null"`
+	CaseID     int    `gorm:"default:null"`
+	SwitchID   int    `gorm:"default:null"`
+	KeycapsID  int    `gorm:"default:null"`
 }
 
 type Users struct {
 	gorm.Model
-	ID       int `gorm:"primaryKey"`
-	Username string
-	Password string
-	Email    string
-	Name     string
+	ID       int    `gorm:"primaryKey"`
+	Username string `gorm:"not null" json:"username"`
+	Password string `gorm:"not null" json:"password"`
+	Email    string `gorm:"not null" json:"email"`
+	Name     string `gorm:"not null"	json:"name"`
 }
 
 type Reviews struct {
@@ -63,6 +59,6 @@ type Reviews struct {
 	User       Users
 	Date       time.Time
 	UserID     int
-	Stars      int
-	Likes      int
+	Stars      int `gorm:"check:stars >= 0,stars <= 5"`
+	Likes      int `gorm:"check:likes >= 0"`
 }
