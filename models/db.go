@@ -1,8 +1,6 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
@@ -32,17 +30,12 @@ type Keycaps struct {
 
 type Keyboard struct {
 	gorm.Model
-	ID         int    `gorm:"primaryKey"`
-	Name       string `gorm:"not null" json:"name"`
-	Custom     bool   `gorm:"default:false" json:"custom"`
-	Photo_path string `gorm:"default:/static/img/placeholder.png" json:"photo_path"`
-	PcbID      int    `gorm:"default:null" json:"pcb_id"`
-	CaseID     int    `gorm:"default:null" json:"case_id"`
-	SwitchID   int    `gorm:"default:null" json:"switch_id"`
-	KeycapsID  int    `gorm:"default:null" json:"keycaps_id"`
+	ID       int    `gorm:"primaryKey"`
+	Name     string `gorm:"not null" json:"name"`
+	UrlPhoto string `gorm:"default: ''" json:"url_photo"`
 }
 
-type Users struct {
+type User struct {
 	gorm.Model
 	ID       int    `gorm:"primaryKey"`
 	Username string `gorm:"not null" json:"username"`
@@ -51,14 +44,19 @@ type Users struct {
 	Name     string `gorm:"not null" json:"name"`
 }
 
-type Reviews struct {
+type Review struct {
 	gorm.Model
-	ID         int `gorm:"primaryKey"`
-	Keyboard   Keyboard
-	KeyboardID int
-	User       Users
-	Date       time.Time
-	UserID     int
-	Stars      int `gorm:"check:stars >= 0,stars <= 5"`
-	Likes      int `gorm:"check:likes >= 0"`
+	ID          int    `gorm:"primaryKey"`
+	KeyboardID  int    `gorm:"not null" json:"keyboard_id"`
+	UserID      int    `gorm:"not null" json:"user_id"`
+	Stars       int    `gorm:"check:stars >= 0; stars <= 5"`
+	Description string `gorm:"default: ''" json:"description"`
+	Likes       int    `gorm:"default: 0; check:likes >= 0"`
+}
+
+type Like struct {
+	gorm.Model
+	ID       int `gorm:"primaryKey"`
+	ReviewID int `json:"review_id"`
+	UserID   int `json:"user_id"`
 }

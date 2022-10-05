@@ -13,11 +13,11 @@ import (
 
 func UserRoutes(e *echo.Echo, db *gorm.DB) {
 	e.POST("/login", func(c echo.Context) error {
-		user := new(models.Users)
+		user := new(models.User)
 		if err := c.Bind(user); err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
 		}
-		findUser := models.Users{}
+		findUser := models.User{}
 
 		result := db.Where("username = ?", user.Username).First(&findUser)
 
@@ -34,7 +34,7 @@ func UserRoutes(e *echo.Echo, db *gorm.DB) {
 	})
 
 	e.POST("/register", func(c echo.Context) error {
-		user := models.Users{}
+		user := models.User{}
 		if err := c.Bind(&user); err != nil {
 			return c.JSON(http.StatusInternalServerError, err)
 		}

@@ -13,6 +13,7 @@ func main() {
 
 	routes.UserRoutes(e, DB)
 	routes.KeyboardRoutes(e, DB)
+	routes.ReviewsRoutes(e, DB)
 
 	e.Logger.Fatal(e.Start(":5000"))
 }
