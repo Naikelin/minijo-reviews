@@ -1,7 +1,7 @@
 version: '3.1'
 
 services:
-  pgsql:
+  db:
     image: postgres
     restart: always
     ports:
@@ -12,3 +12,16 @@ services:
       POSTGRES_DB: minijo
     volumes:
       - ~/docker-data/postgresql/data:/var/lib/postgresql/data
+  app:
+    build: .
+    command: ["/bin/wait-for-it.sh", "db:5432", "--", "/bin/main"]
+    ports:
+      - 5000:5000
+    environment: 
+      USER_DB: minijo123
+      PASS_DB: miata123
+      NAME_DB: minijo
+      HOST_DB: db
+      PORT_DB: 5432
+    depends_on:
+      - db
