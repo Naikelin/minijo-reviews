@@ -11,7 +11,14 @@ import (
 
 func avrgStars(keyboardID int, db *gorm.DB) float64 {
 	reviews := []models.Review{}
-	db.Where("keyboard_id = ?", keyboardID).Find(&reviews)
+	err := db.Where("keyboard_id = ?", keyboardID).Find(&reviews)
+	if err != nil {
+		return 0
+	}
+
+	if len(reviews) == 0 {
+		return 0
+	}
 
 	var sum int
 	for _, review := range reviews {
