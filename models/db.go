@@ -30,9 +30,10 @@ type Keycaps struct {
 
 type Keyboard struct {
 	gorm.Model
-	ID       int    `gorm:"primaryKey"`
-	Name     string `gorm:"not null" json:"name"`
-	UrlPhoto string `gorm:"default: ''" json:"url_photo"`
+	ID       int     `gorm:"primaryKey"`
+	Name     string  `gorm:"not null" json:"name"`
+	UrlPhoto string  `gorm:"default: ''" json:"url_photo"`
+	Stars    float64 `json:"stars"`
 }
 
 type User struct {
