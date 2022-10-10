@@ -5,10 +5,12 @@ import (
 	"minijo/routes"
 
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 )
 
 func main() {
 	e := echo.New()
+	e.Use(middleware.CORS())
 	DB := db.Init()
 
 	routes.UserRoutes(e, DB)
