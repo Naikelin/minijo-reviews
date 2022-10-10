@@ -44,6 +44,21 @@ func ReviewsRoutes(e *echo.Echo, db *gorm.DB) {
 	})
 
 	/*
+		Obtiene varias reviews a partir de un Keyboard ID
+		Ruta: {GET}
+			$URL/getReviewsKeyboard/:id
+	*/
+
+	e.GET("/getReviewsKeyboard/:id", func(c echo.Context) error {
+		id, _ := strconv.Atoi(c.Param("id"))
+		reviews := []models.Review{}
+
+		db.Where("keyboard_id = ?", id).Find(&reviews)
+
+		return c.JSON(http.StatusOK, reviews)
+	})
+
+	/*
 		Crea una review. Necesita:
 			- id del usuario {user_id} // NOT NULL
 			- id del teclado {keyboard_id} // NOT NULL
