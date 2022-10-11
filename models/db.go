@@ -38,7 +38,7 @@ type Keyboard struct {
 
 type User struct {
 	gorm.Model
-	ID       int    `gorm:"primaryKey"`
+	ID       int    `gorm:"primaryKey" json:"id"`
 	Username string `gorm:"not null" json:"username"`
 	Password string `gorm:"not null" json:"password"`
 	Email    string `gorm:"not null" json:"email"`

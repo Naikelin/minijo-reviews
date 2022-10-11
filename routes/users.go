@@ -26,10 +26,18 @@ func UserRoutes(e *echo.Echo, db *gorm.DB) {
 			return c.JSON(http.StatusInternalServerError, result.Error)
 		}
 
+		userResponse := struct {
+			status string
+			id     int
+		}{}
+
 		if (findUser.Username == user.Username) && (findUser.Password == user.Password) {
-			return c.JSON(http.StatusOK, "login successful")
+			userResponse.status = "login successfully"
+			userResponse.id = findUser.ID
+			return c.JSON(http.StatusOK, userResponse)
 		} else {
-			return c.JSON(http.StatusUnauthorized, "No login 4 u >:c")
+			userResponse.status = "No login 4 u >:c"
+			return c.JSON(http.StatusUnauthorized, userResponse)
 		}
 	})
 
