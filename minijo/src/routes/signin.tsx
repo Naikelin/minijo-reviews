@@ -66,7 +66,7 @@ export default function SignIn() {
           if(res.status == 401){
             setLoginFailed(true);
           }else{
-            login()
+            login(1);
           }
         })
 };

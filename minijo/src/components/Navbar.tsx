@@ -23,6 +23,8 @@ interface Options {
   name: string,
   link: string
 }
+const {id, user, login, logout} = useAuth();
+
 const pages: string[] = ['keyboards'];
 const settings: Options[] = [
   {
@@ -35,7 +37,7 @@ const settings: Options[] = [
   },
   {
     name: 'My Reviews',
-    link: '/myreviews'
+    link: `/myreviews/`
   }
 ];
 
@@ -44,7 +46,24 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-  const {user, login, logout} = useAuth();
+  const {user, login, logout, id} = useAuth();
+
+  const settings: Options[] = [
+    {
+      name: 'Profile',
+      link: '/'
+    },
+    {
+      name: 'Account',
+      link: '/'
+    },
+    {
+      name: 'My Reviews',
+      link: `/myreviews/${id}`
+    }
+  ];
+
+ 
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -192,7 +211,7 @@ const ResponsiveAppBar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting.name}  onClick={setting.name == 'Logout' ? handleCloseMenuLogout : handleCloseUserMenu}>
-                    <Link to={setting.link}>
+                    <Link to={setting.link == 'My R'}>
                       <Typography textAlign="center">{setting.name}</Typography>
                     </Link>
                   </MenuItem>

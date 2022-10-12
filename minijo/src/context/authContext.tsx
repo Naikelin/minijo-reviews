@@ -2,14 +2,16 @@ import React,{ createContext, useContext, ReactNode, useState } from "react";
 
 type authContextType = {
     user: boolean | null;
-    login: () => void;
+    login: (id: number) => void;
     logout: () => void;
+    id: number;
 };
 
 const authContextDefaultValues: authContextType = {
     user: null,
-    login: () => {},
+    login: (id: number) => {},
     logout: () => {},
+    id: 0
 };
 
 const AuthContext = createContext<authContextType>(authContextDefaultValues);
@@ -24,9 +26,11 @@ type Props = {
 
 export default function AuthProvider({ children }: Props) {
     const [user, setUser] = useState<boolean | null>(null);
+    const [id, setId] = useState<number>(0);
 
-    const login = () => {
+    const login = (id: number) => {
         setUser(true);
+        setId(id);
     };
 
     const logout = () => {
@@ -37,6 +41,7 @@ export default function AuthProvider({ children }: Props) {
         user,
         login,
         logout,
+        id
     };
 
     return (
