@@ -35,6 +35,7 @@ export default function AuthProvider({ children }: Props) {
 
     const logout = () => {
         setUser(false);
+        setId(-1);
     };
 
     const value = {

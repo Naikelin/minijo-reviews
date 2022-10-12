@@ -14,6 +14,7 @@ import ResponsiveAppBar from './components/Navbar';
 import Customization from './routes/reviews';
 import Signup from './routes/signup';
 import AuthProvider from './context/authContext'
+import MyReviews from './routes/myreviews';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -35,7 +36,7 @@ const router = createBrowserRouter([
       },
       {
         path: "myreviews/:id",
-        element: <Reviews />,
+        element: <MyReviews />,
       },
     ]
   },

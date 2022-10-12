@@ -17,7 +17,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import Grid2 from '@mui/material/Unstable_Grid2'
 import KeyboardReview from '../components/ReviewCard'
-import ReviewCard from '../components/ReviewCard'
 import UserReviewCard from '../components/UserReviewCard'
 import {useParams} from 'react-router-dom';
 
@@ -46,24 +45,27 @@ interface Keyboard {
   url_photo: string
 }
 
-export default function Reviews() {
+export default function MyReviews() {
 
   const [reviewsFetched, setReviewsFetched] = useState<Array<Review>> ([])
   const [keyBoardsFetched, setKeyoardsFetched] = useState<Array<Keyboard>>([])
+  const [stateChange, setStateChange] = useState(false)
 
   const {id} = useParams();
+  
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getReviewsKeyboard/${id}`)
+    fetch(`http://localhost:5000/getReviews`)
       .then(res => res.json())
       .then( data => setReviewsFetched(data) )
     
+      // fetch photo
     fetch('http://localhost:5000/keyboards')
       .then(res => res.json())
       .then(dataKeyboards => {
         setKeyoardsFetched(dataKeyboards);
       })
-  }, [])
+  }, [stateChange])
 
   const handleUrl = () => {
     for (const keyboard of keyBoardsFetched){
@@ -76,6 +78,10 @@ export default function Reviews() {
 
   }
 
+  const handleClick = () => {	
+    setStateChange(!stateChange)
+  }
+
 
   return (
 
@@ -83,22 +89,25 @@ export default function Reviews() {
         container 
         spacing={2} 
         paddingLeft={10} 
-        paddingTop={5}>
+        paddingTop={5}
+        onClick={handleClick}
+        >
         {reviewsFetched.map((item) => {
 
+          if(item.user_id == Number(id)){
             return(
                 <Grid2 xs={6} md={3}  >
                     <UserReviewCard 
                         id = {item.ID}
-                       user_id = {item.user_id}
-                       description = {item.description}
-                       Stars ={item.Stars}
-                       CreatedAt={item.CreatedAt}
-                       url_photo = {handleUrl()}
-                       userReview = {true}
-                        />
+                        user_id = {item.user_id}
+                        description = {item.description}
+                        Stars ={item.Stars}
+                        CreatedAt={item.CreatedAt}
+                        url_photo = {handleUrl()}
+                        userReview = {true}/>
                 </Grid2>
             )
+          }
         })}         
     </Grid2>
 

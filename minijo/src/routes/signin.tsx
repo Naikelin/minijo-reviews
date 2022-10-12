@@ -34,7 +34,7 @@ const theme = createTheme();
 export default function SignIn() {
 
 
-  const {user, login, logout} = useAuth();
+  const {user, login, logout, id} = useAuth();
 
   const [loginFailed, setLoginFailed] = useState(false);
 
@@ -44,10 +44,6 @@ export default function SignIn() {
     const data = new FormData(event.currentTarget);
 
 
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
 
     const requestOptions = {
         method: 'POST',
@@ -61,15 +57,21 @@ export default function SignIn() {
     };
 
     fetch('http://localhost:5000/login',requestOptions)
-        .then((res) => {
-          res.json()
-          if(res.status == 401){
-            setLoginFailed(true);
-          }else{
-            login(1);
+        .then(response => {
+          if(response.ok){
+            return response.json()
           }
+          return Promise.reject(response)
         })
-};
+        .then(data => {
+          console.log(data)
+          login(data.id)
+        } );
+        // .catch( error => { 
+        //   setLoginFailed(true);
+        //   console.log(Error)
+        // } )
+}
 
   return (
 

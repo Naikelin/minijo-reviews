@@ -23,23 +23,9 @@ interface Options {
   name: string,
   link: string
 }
-const {id, user, login, logout} = useAuth();
 
 const pages: string[] = ['keyboards'];
-const settings: Options[] = [
-  {
-    name: 'Profile',
-    link: '/'
-  },
-  {
-    name: 'Account',
-    link: '/'
-  },
-  {
-    name: 'My Reviews',
-    link: `/myreviews/`
-  }
-];
+
 
 const ResponsiveAppBar = () => {
 
@@ -60,6 +46,10 @@ const ResponsiveAppBar = () => {
     {
       name: 'My Reviews',
       link: `/myreviews/${id}`
+    },
+    {
+      name: 'Logout',
+      link: '/'
     }
   ];
 
@@ -85,7 +75,6 @@ const ResponsiveAppBar = () => {
     logout();
   };
   
-  console.log(user);
 
   return (
     <AppBar position="static">
@@ -211,7 +200,7 @@ const ResponsiveAppBar = () => {
               >
                 {settings.map((setting) => (
                   <MenuItem key={setting.name}  onClick={setting.name == 'Logout' ? handleCloseMenuLogout : handleCloseUserMenu}>
-                    <Link to={setting.link == 'My R'}>
+                    <Link to={setting.link}>
                       <Typography textAlign="center">{setting.name}</Typography>
                     </Link>
                   </MenuItem>

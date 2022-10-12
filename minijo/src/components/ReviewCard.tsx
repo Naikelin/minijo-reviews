@@ -84,7 +84,7 @@ export default function ReviewCard(props: Props) {
       </CardContent>
 
       <CardActions disableSpacing>
-        {props.userReview
+        {!props.userReview
         ?
         <>
           <IconButton aria-label="add to favorites">

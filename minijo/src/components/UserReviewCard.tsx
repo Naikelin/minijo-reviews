@@ -20,6 +20,13 @@ import Rating from '@mui/material/Rating';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -47,12 +54,21 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 
-
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
 
 
 export default function UserReviewCard(props: Props) {
   const [expanded, setExpanded] = React.useState(false);
+  const [value, setValue] = React.useState<number | null>(props.Stars);
+  const [newText, setText] = React.useState(props.description);
 
+  const [editing, setEditing] = React.useState(false);
   
 
   const handleExpandClick = () => {
@@ -60,8 +76,8 @@ export default function UserReviewCard(props: Props) {
   };
 
   const handleDelete = () => {
-    console.log('a');
-    fetch(`http://localhost:5000/deleteReview/${props.id}`, {
+
+    fetch(`http://localhost:5000/deleteReview`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -71,11 +87,16 @@ export default function UserReviewCard(props: Props) {
       })
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    
   }
 
+  const handleEditButton = () => {
+    setEditing(true);
+  }
+
+
   const handleEdit = () => {
-    console.log('a');
+
     fetch(`http://localhost:5000/editReview`, {
       method: 'PUT',
       headers: {
@@ -91,6 +112,33 @@ export default function UserReviewCard(props: Props) {
     .then(data => console.log(data))
   }
 
+  const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    //get all the data from the form that was submitted
+    const formData = new FormData(event.currentTarget);
+    //create an object from the form data
+    const data = Object.fromEntries(formData.entries());
+    console.log(typeof data.stars);
+    //send the data to the server
+    fetch(`http://localhost:5000/editReview`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: props.id,
+        stars: Number(data.stars),
+        description: data.description
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    //reset the form
+    event.currentTarget.reset();
+    //stop the page from reloading
+    event.preventDefault();
+    setEditing(false);
+
+  }
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -104,45 +152,66 @@ export default function UserReviewCard(props: Props) {
           </IconButton>
         }
         title={'User: '+props.user_id}
-        subheader={'Date: '+props.CreatedAt.substring(0,10)}
-      />
+        subheader={'Date: '+props.CreatedAt.substring(0,10)}>
+      </CardHeader>
+      
       <CardMedia
         component="img"
         height="194"
         image={props.url_photo}
-        alt="Paella dish"
-      />
+        alt="Paella dish">
+      </CardMedia>
+
+
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-            {props.description}
-        </Typography>
-        <Rating name="read-only" value={props.Stars} readOnly />
+        { 
+        editing 
+        ?
+          <>
+            <form onSubmit={handleFormSubmit}>
+              <Stack spacing={2}>
+                <TextField 
+                  name="description" 
+                  label="Description" 
+                  variant="outlined"
+                  value={newText}
+                  defaultValue={newText} 
+                  onChange={(newValue) => setText(newValue.target.value)} />
+                <Rating
+                  name="stars"
+                  value={value}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}/>
+                  <Button type="submit" variant="contained" startIcon={<SaveIcon />} >Save</Button>
+              </Stack>
+            </form>
+          </>
+        :
+          <>
+            <Typography variant="body2" color="text.secondary">
+                {newText}
+            </Typography>
+            <Rating name="read-only" value={value} readOnly />
+          </>
+        }
 
       </CardContent>
 
-      <CardActions disableSpacing>
-        {props.userReview
-        ?
-        <>
-          <IconButton aria-label="add to favorites">
-            <ThumbUpIcon />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ThumbDown />
-          </IconButton>
-        </>
-        :
-        < >
-          <Button sx={{mr: 2 }} variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>
-            Deletea
-          </Button>
-          <Button variant="contained"  startIcon={<EditIcon />} onClick={handleEdit}>
-            Edit
-          </Button>
-        </>
-      }
-    
-      </CardActions>
+      {
+      editing
+      ?
+        <></>
+      :
+        <CardActions disableSpacing>
+            <Button sx={{mr: 2 }} variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleDelete}>
+              Delete
+            </Button>
+            <Button variant="contained"  startIcon={<EditIcon />} onClick={handleEditButton}>
+              Edit
+            </Button>
+        </CardActions>
+        }
      
     </Card>
   );
