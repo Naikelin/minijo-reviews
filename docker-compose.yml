@@ -3,6 +3,7 @@ version: '3.1'
 services:
   db:
     image: postgres
+    container_name: minijo-db
     restart: always
     ports:
       - 5432:5432
@@ -12,8 +13,9 @@ services:
       POSTGRES_DB: minijo
     volumes:
       - ~/docker-data/postgresql/data:/var/lib/postgresql/data
-  app:
-    build: .
+  backend:
+    build: ./minijo-backend/
+    container_name: minijo-backend
     command: ["/bin/wait-for-it.sh", "db:5432", "--", "/bin/main"]
     ports:
       - 5000:5000
@@ -21,7 +23,13 @@ services:
       USER_DB: minijo123
       PASS_DB: miata123
       NAME_DB: minijo
-      HOST_DB: db
+      HOST_DB: minijo-db
       PORT_DB: 5432
     depends_on:
       - db
+  minijo-frontend:
+    build: ./minijo-frontend/
+    container_name: minijo-frontend
+    ports:
+      - 3000:80
+
