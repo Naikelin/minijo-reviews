@@ -58,7 +58,7 @@ function CreateReview() {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            keyboard_idL : idkeyboard,
+            keyboard_id : idkeyboard,
             user_id: Number(iduser),
             description: data.description,
             stars: Number(data.stars)
