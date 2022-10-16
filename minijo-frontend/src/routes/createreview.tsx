@@ -50,7 +50,6 @@ function CreateReview() {
         const formData = new FormData(event.currentTarget);
         //create an object from the form data
         const data = Object.fromEntries(formData.entries());
-        console.log(typeof data.stars);
         //send the data to the server
         fetch(process.env.REACT_APP_ENDPOINT+`createReview`, {
           method: 'POST',

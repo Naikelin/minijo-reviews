@@ -50,7 +50,7 @@ const router = createBrowserRouter([
         element: <Create />,
       },
       {
-        path: "createReview/:iduser/:idkeyboard",
+        path: "createReview/:idkeyboard/:iduser",
         element: <CreateReview />,
       }
     ]
