@@ -4,9 +4,7 @@ Simple system for reviews of keyboards.
 
 # How to run?
 
-´´´
-docker-compose up
-´´´
+    docker-compose up
 
 # Docker enviroments vars
 
