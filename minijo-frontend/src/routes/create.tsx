@@ -12,9 +12,13 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import Filters from '../components/Filters'
+import Container from '@mui/material/Container';
+
 
 import Grid2 from '@mui/material/Unstable_Grid2'
 import KeyboardCard from "../components/KeyboardCard";
+import CreateCard from "../components/CreateCard";
+
 
 interface Keyboard { 
     author: string,  
@@ -193,10 +197,9 @@ function Create(){
         </Box> 
         :
             <>
-                <Filters 
-                    handleInputChange={modifyKeyboardDisplayed} 
-                    keyboardsFetched = {keyboardsFetched}
-                />
+               <Container sx={{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', marginTop: '2rem'}}>
+                    <Typography variant='h4' sx={{marginBottom: '1rem'}}>Select a keyboard to review</Typography>
+                </Container>
 
                     <Grid2 
                         container 
@@ -206,7 +209,8 @@ function Create(){
                         {keyboardsDisplay.map((keyboardItem) => {
                             return(
                                 <Grid2 xs={6} md={3}  >
-                                    <KeyboardCard 
+                                    
+                                    <CreateCard 
                                         name = {keyboardItem.name} 
                                         CreatedAt = {''}
                                         DeletedAt = {''} 

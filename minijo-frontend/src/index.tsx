@@ -17,6 +17,7 @@ import Home from './routes/home';
 import AuthProvider from './context/authContext'
 import MyReviews from './routes/myreviews';
 import Create from './routes/create';
+import CreateReview from './routes/createreview';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -44,6 +45,14 @@ const router = createBrowserRouter([
         path: "myreviews/:id",
         element: <MyReviews />,
       },
+      {
+        path: "create",
+        element: <Create />,
+      },
+      {
+        path: "createReview/:iduser/:idkeyboard",
+        element: <CreateReview />,
+      }
     ]
   },
   {
