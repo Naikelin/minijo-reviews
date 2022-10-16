@@ -16,6 +16,7 @@ import Signup from './routes/signup';
 import Home from './routes/home';
 import AuthProvider from './context/authContext'
 import MyReviews from './routes/myreviews';
+import Create from './routes/create';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 

@@ -53,7 +53,7 @@ export default function Reviews() {
   const {id} = useParams();
 
   useEffect(() => {
-    fetch(process.env.REACT_APP_ENDPOINT+'getReviewsKeyboard/${id}')
+    fetch(process.env.REACT_APP_ENDPOINT+`getReviewsKeyboard/${id}`)
       .then(res => res.json())
       .then( data => setReviewsFetched(data) )
     
