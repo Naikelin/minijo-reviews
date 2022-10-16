@@ -55,12 +55,12 @@ export default function MyReviews() {
   
 
   useEffect(() => {
-    fetch(process.env.ENDPOINT+'getReviews')
+    fetch(process.env.REACT_APP_ENDPOINT+'getReviews')
       .then(res => res.json())
       .then( data => setReviewsFetched(data) )
     
       // fetch photo
-    fetch(process.env.ENDPOINT+'keyboards')
+    fetch(process.env.REACT_APP_ENDPOINT+'keyboards')
       .then(res => res.json())
       .then(dataKeyboards => {
         setKeyoardsFetched(dataKeyboards);

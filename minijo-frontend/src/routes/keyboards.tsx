@@ -166,7 +166,7 @@ function Keyboards(){
     const [keyboardsDisplay, setKeyboardsDisplay] = useState<Array<KeyboardData>>([])
 
     useEffect(() => {
-        fetch(process.env.ENDPOINT+'keyboards')
+        fetch(process.env.REACT_APP_ENDPOINT+'keyboards')
         .then(res => res.json())
         .then((datos) => { 
             console.log(datos)

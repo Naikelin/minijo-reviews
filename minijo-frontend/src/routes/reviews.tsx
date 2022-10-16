@@ -53,11 +53,11 @@ export default function Reviews() {
   const {id} = useParams();
 
   useEffect(() => {
-    fetch(process.env.ENDPOINT+'getReviewsKeyboard/${id}')
+    fetch(process.env.REACT_APP_ENDPOINT+'getReviewsKeyboard/${id}')
       .then(res => res.json())
       .then( data => setReviewsFetched(data) )
     
-    fetch(process.env.ENDPOINT+'keyboards')
+    fetch(process.env.REACT_APP_ENDPOINT+'keyboards')
       .then(res => res.json())
       .then(dataKeyboards => {
         setKeyoardsFetched(dataKeyboards);

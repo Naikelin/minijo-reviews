@@ -56,7 +56,7 @@ export default function SignUp() {
        })
   };
 
-    fetch(process.env.ENDPOINT+'register',requestOptions)
+    fetch(process.env.REACT_APP_ENDPOINT+'register',requestOptions)
       .then(res => res.json())
       .then(data => setStatusCreated(true))
   

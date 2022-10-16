@@ -61,11 +61,7 @@ export default function ReviewCard(props: Props) {
         avatar={
           <Avatar src={"/broken-image.jpg"} />
         }
-        action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
-          </IconButton>
-        }
+       
         title={'User: '+props.user_id}
         subheader={'Date: '+props.CreatedAt.substring(0,10)}
       />
