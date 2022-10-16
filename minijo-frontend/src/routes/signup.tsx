@@ -56,7 +56,7 @@ export default function SignUp() {
        })
   };
 
-    fetch('http://localhost:5000/register',requestOptions)
+    fetch(process.env.ENDPOINT+'register',requestOptions)
       .then(res => res.json())
       .then(data => setStatusCreated(true))
   

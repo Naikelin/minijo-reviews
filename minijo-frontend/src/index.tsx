@@ -13,6 +13,7 @@ import SignIn from './routes/signin'
 import ResponsiveAppBar from './components/Navbar';
 import Customization from './routes/reviews';
 import Signup from './routes/signup';
+import Home from './routes/home';
 import AuthProvider from './context/authContext'
 import MyReviews from './routes/myreviews';
 
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
         <App/>
       </AuthProvider>,
     children: [
+      {
+        path: "/home",
+        element: <Home />
+      },
       { 
         path: "/keyboards",
         element: <Keyboards />

@@ -53,11 +53,11 @@ export default function Reviews() {
   const {id} = useParams();
 
   useEffect(() => {
-    fetch(`http://localhost:5000/getReviewsKeyboard/${id}`)
+    fetch(process.env.ENDPOINT+'getReviewsKeyboard/${id}')
       .then(res => res.json())
       .then( data => setReviewsFetched(data) )
     
-    fetch('http://localhost:5000/keyboards')
+    fetch(process.env.ENDPOINT+'keyboards')
       .then(res => res.json())
       .then(dataKeyboards => {
         setKeyoardsFetched(dataKeyboards);
