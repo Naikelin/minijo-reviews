@@ -1,4 +1,22 @@
-# Simple CRUD using Echo and pgsql
+# minijo-reviews
+
+Simple system for reviews of keyboards.
+
+# How to run?
+
+    docker-compose up
+
+# Docker enviroments vars
+
+## Database PGSQL
+
+    POSTGRES_USER, POSTGRES_PASSWORD, POSTGRES_DB
+
+## backend envs
+
+      USER_DB, PASS_DB, NAME_DB, HOST_DB, PORT_DB: 5432
+
+# Simple CRUD using go Echo and pgsql
 
 ## Routes API
 
@@ -69,3 +87,5 @@
     Ruta: {DELETE}
         $URL/deleteReview
     ```
+
+# Frontend using react
