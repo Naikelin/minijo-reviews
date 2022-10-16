@@ -11,7 +11,7 @@ import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import SaveIcon from '@mui/icons-material/Save';
-
+import { Navigate } from "react-router-dom";
 
 interface Keyboard {
     CreatedAt: string,
@@ -28,7 +28,7 @@ function CreateReview() {
     const [keyboardData, setKeyboardData] = useState<Keyboard>({} as Keyboard);
     const [value, setValue] = React.useState<number | null>(0);
     const [newText, setText] = React.useState<string>('');
-
+    const [finished, setFinished] = React.useState<boolean>(false);
 
     useEffect(() => {
         fetch(process.env.REACT_APP_ENDPOINT+`keyboards`)
@@ -70,10 +70,13 @@ function CreateReview() {
         event.currentTarget.reset();
         //stop the page from reloading
         event.preventDefault();
-    
+        setFinished(true);
       }
 
+      if (finished) return <Navigate to='/' replace={true} />
+
     return (
+        <>
         <Card sx={{ maxWidth: 345, m: 5}}>
         <CardActionArea>
           <CardMedia
@@ -107,6 +110,7 @@ function CreateReview() {
           </CardContent>
         </CardActionArea>
       </Card>
+      </>
         
     )
 }
