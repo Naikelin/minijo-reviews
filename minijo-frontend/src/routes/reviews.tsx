@@ -19,6 +19,7 @@ import Grid2 from '@mui/material/Unstable_Grid2'
 import KeyboardReview from '../components/ReviewCard'
 import ReviewCard from '../components/ReviewCard'
 import {useParams} from 'react-router-dom';
+import { Container } from '@mui/material';
 
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
@@ -49,13 +50,20 @@ export default function Reviews() {
 
   const [reviewsFetched, setReviewsFetched] = useState<Array<Review>> ([])
   const [keyBoardsFetched, setKeyoardsFetched] = useState<Array<Keyboard>>([])
+  const [empty, setEmpty] = useState(false)
+
 
   const {id} = useParams();
 
   useEffect(() => {
     fetch(process.env.REACT_APP_ENDPOINT+`getReviewsKeyboard/${id}`)
       .then(res => res.json())
-      .then( data => setReviewsFetched(data) )
+      .then( data => {
+          setReviewsFetched(data)
+          if (data.length == 0) {
+            setEmpty(true)
+          }}
+        )
     
     fetch(process.env.REACT_APP_ENDPOINT+'keyboards')
       .then(res => res.json())
@@ -83,6 +91,13 @@ export default function Reviews() {
         spacing={2} 
         paddingLeft={10} 
         paddingTop={5}>
+        {empty ? 
+           <Container sx={{justifyContent: 'center', alignItems: 'center', display: 'flex', flexDirection: 'column', marginTop: '2rem'}}>
+              <Typography variant='h4' sx={{marginBottom: '1rem'}}>No reviews available for this keyboard</Typography>
+            </Container>
+            :
+            <> </>
+            }
         {reviewsFetched.map((item) => {
 
             return(
