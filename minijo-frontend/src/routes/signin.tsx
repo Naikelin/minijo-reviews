@@ -82,7 +82,7 @@ export default function SignIn() {
         <Alert severity="error">
          Las credenciales no son corrects <strong>Intente nuevamente!</strong>
         </Alert>}
-      {user &&  <Navigate to="/" replace={true} />}  
+      {user &&  <Navigate to="/home" replace={true} />}  
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box

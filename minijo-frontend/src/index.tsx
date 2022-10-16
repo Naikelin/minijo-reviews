@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       </AuthProvider>,
     children: [
       {
-        path: "/homee",
+        path: "/home",
         element: <Home />
       },
       { 
