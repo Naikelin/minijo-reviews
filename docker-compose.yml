@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   db:
-    image: postgres
+    image: postgres:14
     container_name: minijo-db
     restart: always
     ports:
@@ -17,6 +17,7 @@ services:
     build: ./minijo-backend/
     container_name: minijo-backend
     command: ["/bin/wait-for-it.sh", "db:5432", "--", "/bin/main"]
+    restart: always
     ports:
       - 5000:5000
     environment: 
@@ -29,6 +30,7 @@ services:
       - db
   minijo-frontend:
     build: ./minijo-frontend/
+    restart: on-failure
     container_name: minijo-frontend
     ports:
       - 3000:80
