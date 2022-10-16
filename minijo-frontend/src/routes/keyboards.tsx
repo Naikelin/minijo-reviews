@@ -32,7 +32,8 @@ interface KeyboardData {
     ID: number,
     UpdatedAt: string,
     name: string,
-    url_photo: string
+    url_photo: string,
+    stars: number,
 }
 
 
@@ -213,6 +214,7 @@ function Keyboards(){
                                         ID = {keyboardItem.ID}
                                         UpdatedAt = {''}
                                         url_photo = {keyboardItem.url_photo}
+                                        stars = {Math.round(keyboardItem.stars)}
                                         />
                                 </Grid2>
                             )

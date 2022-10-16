@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
 import {Outlet, NavLink, Link} from 'react-router-dom'
 import {useAuth} from '../context/authContext'
 import {Navigate} from 'react-router-dom'
@@ -90,7 +91,6 @@ const ResponsiveAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -101,8 +101,9 @@ const ResponsiveAppBar = () => {
               textDecoration: 'none',
             }}
           >
-            Minijo
+            Minijos
           </Typography>
+          
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton

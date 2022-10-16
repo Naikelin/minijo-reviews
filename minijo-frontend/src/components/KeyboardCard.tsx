@@ -17,7 +17,8 @@ interface Props {
   ID: number,
   UpdatedAt: string,
   name: string,
-  url_photo: string
+  url_photo: string,
+  stars: number,
 }
 
 
@@ -39,7 +40,7 @@ function CardKeyboard(props: Props) {
         
         <CardContent>
           <Grid2 container display={'flex'} justifyContent={'space-between'}>
-            <Rating name='read-only' value={3} readOnly />
+            <Rating name='read-only' value={props.stars} readOnly />
           </Grid2>
         </CardContent>
       </Card>
