@@ -4,6 +4,7 @@ COPY package.json ./
 COPY package-lock.json ./
 COPY ./ ./
 RUN npm i
+ENV REACT_APP_ENDPOINT="http://localhost:5000/"
 RUN npm run build
 
 FROM nginx:1.19.0
